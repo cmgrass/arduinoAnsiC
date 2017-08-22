@@ -1,6 +1,6 @@
 void NewDelay(unsigned long mSecondsApx);
-#define MESSAGE_MAX_LEN 80
-char message[MESSAGE_MAX_LEN];
+//#define MESSAGE_MAX_LEN 80
+//char message[MESSAGE_MAX_LEN];
 
 void setup()
 {
@@ -10,7 +10,7 @@ void setup()
   
   *portDDRB |= 0x20;
 
-  Serial.begin(9600);
+  //Serial.begin(9600);
 }
 
 void loop()
@@ -41,8 +41,8 @@ void NewDelay(unsigned long mSecondsApx)
       j = j - 1;
       k = i / ((long) j);
 
-      snprintf(message, MESSAGE_MAX_LEN, "%lu, %d, %ld\n", endTime, j, k);
-      Serial.write(message);
+      //snprintf(message, MESSAGE_MAX_LEN, "%lu, %lu, %d, %ld\n", endTime, i, j, k);
+      //Serial.write(message);
 
     } while (k > 0);
   }
