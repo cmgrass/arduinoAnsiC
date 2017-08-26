@@ -1,13 +1,5 @@
 void MyDelay(unsigned long milliSecondsApx);
 void SevSegLookup(unsigned char myCharacter);
-#define MASK_BIT_00 0x01  // 0000 0001
-#define MASK_BIT_01 0x02  // 0000 0010
-#define MASK_BIT_02 0x04  // 0000 0100
-#define MASK_BIT_03 0x08  // 0000 1000
-#define MASK_BIT_04 0x10  // 0001 0000
-#define MASK_BIT_05 0x20  // 0010 0000
-#define MASK_BIT_06 0x40  // 0100 0000
-#define MASK_BIT_07 0x80  // 1000 0000
 #define DIRECTION_PORTD 0x7F  // 0111 1111
 
 void setup()
@@ -24,7 +16,7 @@ void loop()
   volatile unsigned char k;
   unsigned char *portD;
   char myChar;
-  
+
   portD = (unsigned char *) 0x2B;
 
   for (k = 0x30; k < 0x7B; k++)
@@ -34,7 +26,7 @@ void loop()
       MyDelay(25);
       if (k >= 0x39 and k < 0x41)
         {
-          k = 0x40;  
+          k = 0x40;
         }
       else if (k >= 0x5A and k < 0x61)
         {
@@ -47,7 +39,7 @@ void SevSegLookup(unsigned char myCharacter, unsigned char *outputPort)
 {
 
   *outputPort &= (~DIRECTION_PORTD);  // Initialize outputs prior to lookup
-  
+
   switch (myCharacter)
   {
     case 0x30:  // '0'
@@ -61,51 +53,51 @@ void SevSegLookup(unsigned char myCharacter, unsigned char *outputPort)
     case 0x32:  // '2'
       *outputPort |= 0x03;
       break;
-      
+
     case 0x33:  // '3'
       *outputPort |= 0x04;
       break;
-      
+
     case 0x34:  // '4'
       *outputPort |= 0x05;
       break;
-    
+
     case 0x35:  // '5'
       *outputPort |= 0x06;
       break;
-      
+
     case 0x36:  // '6'
       *outputPort |= 0x07;
       break;
-      
+
     case 0x37:  // '7'
       *outputPort |= 0x08;
       break;
-      
+
     case 0x38:  // '8'
       *outputPort |= 0x09;
       break;
-      
+
     case 0x39:  // '9'
       *outputPort |= 0x0A;
       break;
-      
+
     case 0x41:  // 'A'
       *outputPort |= 0x0B;
       break;
-      
+
     case 0x42:  // 'B'
       *outputPort |= 0x0C;
       break;
-      
+
     case 0x43:  // 'C'
       *outputPort |= 0x0D;
       break;
-      
+
     case 0x44:  // 'D'
       *outputPort |= 0x0E;
       break;
-      
+
     case 0x45:  // 'E'
       *outputPort |= 0x0F;
       break;
@@ -197,19 +189,19 @@ void SevSegLookup(unsigned char myCharacter, unsigned char *outputPort)
     case 0x61:  // 'a'
       *outputPort |= 0x25;
       break;
-      
+
     case 0x62:  // 'b'
       *outputPort |= 0x26;
       break;
-      
+
     case 0x63:  // 'c'
       *outputPort |= 0x27;
       break;
-      
+
     case 0x64:  // 'd'
       *outputPort |= 0x28;
       break;
-      
+
     case 0x65:  // 'e'
       *outputPort |= 0x29;
       break;
@@ -297,11 +289,11 @@ void SevSegLookup(unsigned char myCharacter, unsigned char *outputPort)
     case 0x7A:  // 'z'
       *outputPort |= 0x3E;
       break;
-   
+
     default:
       *outputPort |= (~DIRECTION_PORTD);
       break;
-    
+
   }
 }
 
