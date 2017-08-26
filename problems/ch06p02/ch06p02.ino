@@ -10,12 +10,6 @@ void SevSegLookup(unsigned char myCharacter);
 #define MASK_BIT_07 0x80  // 1000 0000
 #define DIRECTION_PORTD 0x7F  // 0111 1111
 
-// DEBUGGING
-/*
-#define MESSAGE_LEN 80
-char message[MESSAGE_LEN];
-*/
-
 void setup()
 {
   unsigned char *portDDRD;
@@ -23,25 +17,32 @@ void setup()
   portDDRD = (unsigned char *) 0x2A;
 
   *portDDRD |= DIRECTION_PORTD;  // Set data direction bits: D0 through D6 = `1`
-
-//  Serial.begin(9600);
 }
 
 void loop()
 {
+  volatile unsigned char k;
   unsigned char *portD;
   char myChar;
   
   portD = (unsigned char *) 0x2B;
-//  snprintf(message, MESSAGE_LEN, "%#x\n", myChar);
-//  Serial.write(message);
 
-  myChar = 'g';
-  SevSegLookup(myChar, portD);
-  MyDelay(500);
-  *portD &= (~DIRECTION_PORTD);
-  MyDelay(500);
-
+  for (k = 0x30; k < 0x7B; k++)
+    {
+      myChar = k;
+      SevSegLookup(myChar, portD);
+      MyDelay(50);
+      *portD &= (~DIRECTION_PORTD);
+      MyDelay(50);   
+      if (k >= 0x39 and k < 0x41)
+        {
+          k = 0x40;  
+        }
+      else if (k >= 0x5A and k < 0x61)
+        {
+          k = 0x60;
+        }
+    }
 }
 
 void SevSegLookup(unsigned char myCharacter, unsigned char *outputPort)
