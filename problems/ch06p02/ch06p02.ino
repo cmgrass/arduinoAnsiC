@@ -31,9 +31,7 @@ void loop()
     {
       myChar = k;
       SevSegLookup(myChar, portD);
-      MyDelay(50);
-      *portD &= (~DIRECTION_PORTD);
-      MyDelay(50);   
+      MyDelay(25);
       if (k >= 0x39 and k < 0x41)
         {
           k = 0x40;  
@@ -47,6 +45,9 @@ void loop()
 
 void SevSegLookup(unsigned char myCharacter, unsigned char *outputPort)
 {
+
+  *outputPort &= (~DIRECTION_PORTD);  // Initialize outputs prior to lookup
+  
   switch (myCharacter)
   {
     case 0x30:  // '0'
